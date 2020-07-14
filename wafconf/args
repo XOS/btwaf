@@ -1,9 +1,11 @@
 \.\./
 \:\$
 \$\{
+/\*|--
+\b(or|xor|and)\b.*(=|<|>|'|")
 select.+(from|limit)
 (?:(union(.*?)select))
-having|rongjitest
+having|load_file
 sleep\((\s*)(\d*)(\s*)\)
 benchmark\((.*)\,(.*)\)
 base64_decode\(
