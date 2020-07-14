@@ -3,9 +3,9 @@
 --waf status
 config_waf_enable = "on"
 --log dir
-config_log_dir = "/data/wwwlogs"
+config_log_dir = "/www/wwwlogs/waf"
 --rule setting
-config_rule_dir = "/usr/local/nginx/conf/waf/wafconf"
+config_rule_dir = "/www/server/nginx/waf/wafconf"
 --enable/disable white url
 config_white_url_check = "on"
 --enable/disable white ip
@@ -23,7 +23,7 @@ config_cookie_check = "on"
 --enable/disable cc filtering
 config_cc_check = "on"
 --cc rate the xxx of xxx seconds
-config_cc_rate = "60/60"
+config_cc_rate = "100/60"
 --enable/disable post filtering
 config_post_check = "on"
 --config waf output redirect/html
@@ -34,7 +34,7 @@ config_waf_captcha_html=[[
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-		<title data-sw-translate>Please enter verification code - OneinStack WAF</title>
+		<title data-sw-translate>Please enter verification code | WebSite WAF</title>
 		<style>
 			body { font-family: Tahoma, Verdana, Arial, sans-serif; }
                         .head_title{margin-top:100px; font-family:"微软雅黑"; font-size:50px; font-weight:lighter;}
@@ -123,7 +123,7 @@ config_waf_captcha_html=[[
 			};
 
 			window.SwaggerTranslator.learn({
-				"Please enter verification code - OneinStack WAF": "输入验证码 - OneinStack防火墙",
+				"Please enter verification code | 网站防火墙": "输入验证码 | 网站防火墙",
 				"Your query looks similar to an automated request from computer software. In order to protect our users, please forgive us for temporarily not processing your request.": "您的查询看起来类似于来自计算机软件的自动请求。为了保护我们的用户，请原谅我们现在暂时不能处理您的请求。",
 				"To continue accessing the webpage, please enter the characters shown below:": "要继续访问网页，请输入下面所示字符：",
 				"Sorry...": "很抱歉...",
@@ -138,30 +138,44 @@ config_waf_captcha_html=[[
 </html>
 ]]
 config_output_html=[[
-<html xmlns="http://www.w3.org/1999/xhtml"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
 <title>网站防火墙</title>
 <style>
-p {
-	line-height:20px;
-}
-ul{ list-style-type:none;}
-li{ list-style-type:none;}
+*{margin:0;padding:0;color:#444}
+body{font-size:14px;font-family:"宋体"}
+.main{width:600px;margin:10% auto;}
+.title{background: #20a53a;color: #fff;font-size: 16px;height: 40px;line-height: 40px;padding-left: 20px;}
+.content{background-color:#f3f7f9; height:320px;border:1px dashed #c6d9b6;padding:20px}
+.t1{border-bottom: 1px dashed #c6d9b6;color: #ff4000;font-weight: bold; margin: 0 0 20px; padding-bottom: 18px;}
+.t2{margin-bottom:8px; font-weight:bold}
+ol{margin:0 0 20px 22px;padding:0;}
+ol li{line-height:30px}
 </style>
 </head>
-<body style=" padding:0; margin:0; font:14px/1.5 Microsoft Yahei, 宋体,sans-serif; color:#555;">
- <div style="margin: 0 auto; width:1000px; padding-top:70px; overflow:hidden;">
-  <div style="width:600px; float:left;">
-    <div style=" height:40px; line-height:40px; color:#fff; font-size:16px; overflow:hidden; background:#6bb3f6; padding-left:20px;">网站防火墙 </div>
-    <div style="border:1px dashed #cdcece; border-top:none; font-size:14px; background:#fff; color:#555; line-height:24px; height:220px; padding:20px 20px 0 20px; overflow-y:auto;background:#f3f7f9;">
-      <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600; color:#fc4f03;">您的请求带有不合法参数，已被网站管理员设置拦截！</span></p>
-      <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">可能原因：您提交的内容包含危险的攻击请求</p>
-      <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;">如何解决：</p>
-      <ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1）检查提交内容；</li>
-      <li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2）如网站托管，请联系空间提供商；</li>
-      <li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3）普通网站访客，请联系网站管理员；</li></ul>
-    </div>
-  </div>
-</div>
-</body></html>
+
+<body>
+	<div class="main">
+		<div class="title">您的请求已被拒绝！</div>
+		<div class="content">
+			<p class="t1">您的请求带有不合法参数，已被网站管理员设置拦截！</p>
+			<p class="t2">可能原因：</p>
+			<ol>
+				<li>您提交的内容包含危险的攻击请求</li>
+				<li>您使用了代理程序请求了该页面</li>
+			</ol>
+			<p class="t2">如何解决：</p>
+			<ol>
+				<li>检查提交内容；</li>
+				<li>关闭代理程序；</li>
+				<li>更换IP或浏览器；</li>
+				<li>这是误报，请联系<a href="mailto:admin@nange.cn" target="_blank" rel="nofollow noopener" class="fa fa-envelope" title="给我发邮件"><span class="label">网站管理员</span></a>解除拦截。</li>
+				
+			</ol>
+		</div>
+	</div>
+</body>
+</html>
 ]]
