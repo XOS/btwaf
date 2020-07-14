@@ -2,3 +2,4 @@
 \.(gif|jpg|jpeg|png|bmp|swf|flv|mp4|ico|map)
 captcha-waf\.html
 403\.html
+^/phpmyadmin_
