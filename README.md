@@ -1,11 +1,5 @@
-### ngx_lua_waf
-ngx_lua_waf是一个基于lua-nginx-module的web应用防火墙, 支持验证码验证
-
-### OneinStack启用ngx_lua_waf 
-```
-~/oneinstack/addons.sh
-#install ngx_lua_waf
-```
+### btwaf
+btwaf是一个基于lua-nginx-module的宝塔面板应用防火墙, 支持验证码验证
 ### 手工安装
 ```
 cd /root/oneinstack/src
